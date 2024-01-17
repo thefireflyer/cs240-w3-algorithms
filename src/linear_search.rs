@@ -90,11 +90,11 @@ where
             | let's return None so the consumer knows
          */
         if index < arr.len() && arr[index] == *target {
-            return Some(index);
+            Some(index)
         } else if index < arr.len() {
-            return inner(arr, target, index + 1);
+            inner(arr, target, index + 1)
         } else {
-            return None;
+            None
         }
     }
 

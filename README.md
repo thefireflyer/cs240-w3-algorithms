@@ -1,7 +1,6 @@
 # CS 240 | Week 3 | Algorithms
 
-[![Unit Testing Status](https://github.com/theflyingfire/test2/actions/workflows/updates.yml/badge.svg)](https://github.com/theflyingfire/test2/actions/workflows/updates.yml)
-
+[![Unit testing](https://github.com/thefireflyer/cs240-w3-algorithms/actions/workflows/test.yml/badge.svg)](https://github.com/thefireflyer/cs240-w3-algorithms/actions/workflows/test.yml)
 
 ### Header
 

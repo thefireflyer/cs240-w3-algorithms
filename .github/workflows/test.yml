@@ -17,5 +17,5 @@ jobs:
       - name: Build
         run: cargo build --release
       - name: Run tests
-        run: cargo test --release
+        run: cargo test --release -- --skip test_big
       

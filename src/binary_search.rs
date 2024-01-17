@@ -76,14 +76,14 @@ where
             let item = &arr[midpoint];
 
             if item == target {
-                return Some(midpoint);
+                Some(midpoint)
             } else if item < target {
-                return inner(arr, target, midpoint + 1, upper);
+                inner(arr, target, midpoint + 1, upper)
             } else {
-                return inner(arr, target, lower, midpoint);
+                inner(arr, target, lower, midpoint)
             }
         } else {
-            return None;
+            None
         }
     }
 
