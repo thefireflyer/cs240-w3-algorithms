@@ -12,6 +12,7 @@
         "/target/*",
         "**/.gitignore",
         "**/.spellignore",
-        "/.cargo/*"
+        "/.cargo/*",
+        "/.rustup/"
     ]
 }

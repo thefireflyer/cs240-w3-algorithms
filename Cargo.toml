@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.79"
 proptest = "1.4.0"
+tailcall = "1.0.1"
