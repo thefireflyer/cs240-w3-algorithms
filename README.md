@@ -4,12 +4,12 @@
 
 ### Header
 
-||||
-|-|-|-
-| Author | Aidan Beil
-| Date | 17/1/2024
-| Class | CS240 2963
-| Professor | Darrell Criss
+| | |
+|-|-|
+| Author | Aidan Beil |
+| Date | 17/1/2024 |
+| Class | CS240 2963 |
+| Professor | Darrell Criss |
 
 ### Sectioning
 

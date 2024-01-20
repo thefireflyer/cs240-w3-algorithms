@@ -4,7 +4,7 @@ use tailcall::tailcall;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-/// Returns in the index of `target` in `arr` if it exists
+/// Returns the index of `target` in `arr` if it exists
 ///
 /// - Inputs:
 ///     | `arr: &[T]`
@@ -22,7 +22,7 @@ use tailcall::tailcall;
 ///         | `target` does not exist in `arr`
 ///
 ///
-fn linear_search_iterative<T>(arr: &[T], target: &T) -> Option<usize>
+pub fn linear_search_iterative<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
 {
@@ -34,14 +34,14 @@ where
             return Some(pos);
         }
     }
-    // iterated through every item and could find `target`...
-    // `target` must not exist in `arr`, let's consumer know
+    // iterated through every item and couldn't find `target`...
+    // `target` must not exist in `arr`, we'll let the consumer know
     None
 }
 
 //---------------------------------------------------------------------------//
 
-/// Returns in the index of `target` in `arr` if it exists
+/// Returns the index of `target` in `arr` if it exists
 ///
 /// - Inputs:
 ///     | `arr: &[T]`
@@ -59,7 +59,7 @@ where
 ///         | `target` does not exist in `arr`
 ///
 ///
-fn linear_search_recursive<T>(arr: &[T], target: &T) -> Option<usize>
+pub fn linear_search_recursive<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
 {
@@ -153,18 +153,15 @@ mod tests {
 
     #[test]
     fn test_big() {
-        let mut arr: Vec<i32> = Vec::with_capacity((2 as i32).pow(30) as usize);
-        for i in 0..(2 as i32).pow(30) {
+        let big_number = (2 as i32).pow(30);
+        let mut arr: Vec<i32> = Vec::with_capacity(big_number as usize);
+        for i in 0..big_number {
             arr.push(i);
         }
 
         helper(&arr, 0, Some(0));
-        helper(
-            &arr,
-            (2 as i32).pow(30) - 1,
-            Some(((2 as i32).pow(30) - 1).try_into().unwrap()),
-        );
-        helper(&arr, (2 as i32).pow(30), None);
+        helper(&arr, big_number - 1, Some((big_number - 1) as usize));
+        helper(&arr, big_number, None);
         helper(&arr, 50, Some(50));
     }
 }
