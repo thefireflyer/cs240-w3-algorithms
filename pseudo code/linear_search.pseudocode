@@ -1,0 +1,53 @@
+
+///////////////////////////////////////////////////////////////////////////////
+
+// --- iterative
+
+
+/// Returns the index of `target` in `arr` if it exists
+function search(arr, target) {
+    // iterate over every element
+    for pos in 0..arr.length {
+        // check if the element is the target
+        if arr[pos] == target {
+            // if so return our current position
+            return pos;
+        }
+    }
+    // iterated through every item and couldn't find `target`...
+    // `target` must not exist in `arr`, we'll let the consumer know
+    return null;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+// --- recursive
+
+/// Returns the index of `target` in `arr` if it exists
+function search(arr, target) {
+    
+    function inner(arr, target, index) {
+        /*
+        - check if our element is valid
+            | if it is
+                - check if it is our target
+                    | if so, return our current index
+                    | otherwise, recursively move onto the next item
+            | otherwise, we reached the end of the list and couldn't find target
+            | let's return None so the consumer knows
+         */
+        if index < arr.length && arr[index] == target {
+            return index;
+        } else if index < arr.length {
+            return inner(arr, target, index + 1);
+        } else {
+            return null;
+        }
+    }
+
+    // start search at the first element
+    return inner(arr, target, 0);
+}
+
+///////////////////////////////////////////////////////////////////////////////

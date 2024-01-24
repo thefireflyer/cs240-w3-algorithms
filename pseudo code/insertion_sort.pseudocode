@@ -1,0 +1,122 @@
+
+///////////////////////////////////////////////////////////////////////////////
+
+// --- iterative
+
+function insertion_sort(arr: Array<number>) {
+
+    // [5  9  1  0  6  4]
+    //     ?
+    //  ^  . 
+    // [5  9  1  0  6  4]
+    //        ?
+    //     ^  .
+    //  ^  1<>9
+    //  1<>5  .
+    // [1  5  9  0  6  4]
+    //           ?
+    //        ^  .
+    //     ^  0<>9
+    //  ^  0<>5  .
+    //  0<>1  .  .
+    // [0  1  5  9  6  4]
+    //              ?
+    //           ^  .
+    //        ^  6<>9    
+    // [0  1  5  6  9  4]
+    //                 ?
+    //              ^  .
+    //           ^  4<>9
+    //        ^  4<>6  .
+    //     ^  4<>5  .  .
+    // [0  1  4  5  6  9]
+
+    // iterate over every element
+    for (let i = 1; i < arr.length; i++) {
+
+        // save current element's value
+        let ind_val = arr[i]
+
+        // walk backwards (leftwards) while our saved value is bigger
+        // than the inspected value
+        for (
+            let rev_ind = i - 1;
+            rev_ind >= 0 && ind_val < arr[rev_ind];
+            rev_ind--
+        ) {
+            // 'swap' elements
+            // set the previous element to the inspected element's value
+            arr[rev_ind + 1] = arr[rev_ind]
+            // set the inspected element to the saved value
+            arr[rev_ind] = ind_val
+        }
+
+
+    }
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// --- recursive
+
+function insertion_sort(arr) {
+    /*
+    [Inner algorithm]
+
+        |
+        | We're pretty much just re-using our existing code, but replacing
+        | the for loops with recursive functions.
+        |
+        | In our iterative code, we have two for loops
+        | (1) walk through each key, left to right
+        | (2) walk, backwards, from each key to the beginning of the list,
+        |       right to left
+        |
+        | So, we'll have two functions:
+        | (1) `inner`, moving left to right
+        | (2) `walk_backwards`, moving right to left, starting at a given key
+        |
+        | We'll pass index to both as a parameter and adjust it each cycle
+        |
+
+    */
+
+    function walk_backwards(arr, index, key) {
+        // check if we're smaller than the leftward element
+        if key < arr[index] {
+            
+            // 'swap' elements
+            // set the previous element to the inspected element's value
+            arr[index + 1] = arr[index]
+            // set the inspected element to the saved value
+            arr[index] = key
+
+            // if we're not about to walk off the edge of the list
+            if (index > 0) {
+                // continue walking backwards
+                walk_backwards(arr, index - 1, key);
+            }
+        }
+        // we're not smaller than the element,
+        // time to move on to the next key
+    }
+
+
+    function inner(arr, index) {
+        // check if we're still on a valid element
+        if index < arr.length {
+            // start walking backwards with the current element as the key
+            walk_backwards(arr, index - 1, arr[index]);
+            // continue on to the next key element
+            inner(arr, index + 1);
+        }
+        // if not, just implicitly return...
+    }
+
+    // start the whole algorithm on the second element
+    // (we already know the first isn't smaller than itself)
+    inner(arr, 1);
+}
+
+///////////////////////////////////////////////////////////////////////////////

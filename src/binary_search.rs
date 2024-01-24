@@ -88,7 +88,7 @@ where
     [Inner algorithm]
 
         |
-        | Essentially same as the iterative approach.
+        | Essentially the same as the iterative approach.
         | We're just breaking up the for loop into a recursive function.
         |
         | Instead of mutable lower and upper bounds, we'll pass them in
