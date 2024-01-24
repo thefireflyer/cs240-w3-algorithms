@@ -146,30 +146,64 @@ pub fn insertion_sort_recursive<T>(arr: &mut [T])
 where
     T: Ord + Clone + fmt::Debug,
 {
+    // The `#[tailcall]` macro is explained in linear_search.rs
+
+    /*
+    [Inner algorithm]
+
+        |
+        | We're pretty much just re-using our existing code, but replacing
+        | the for loops with recursive functions.
+        |
+        | In our iterative code, we have two for loops
+        | (1) walk through each key, left to right
+        | (2) walk, backwards, from each key to the beginning of the list,
+        |       right to left
+        |
+        | So, we'll have two functions:
+        | (1) `inner`, moving left to right
+        | (2) `walk_backwards`, moving right to left, starting at a given key
+        |
+        | We'll pass index to both as a parameter and adjust it each cycle
+        |
+
+    */
+
     #[tailcall]
-    fn walk_backwards<T>(arr: &mut [T], index: usize, key: T)
-    where
-        T: Ord + Clone + fmt::Debug,
-    {
+    fn walk_backwards<T: Ord>(arr: &mut [T], index: usize, key: T) {
+        // check if we're smaller than the leftward element
+        // and that we're not about to walk off the edge of the list
         if key < arr[index] && index > 0 {
+            // swap the values of arr at index + 1 and index
             arr.swap(index + 1, index);
+            // continue walking backwards
             walk_backwards(arr, index - 1, key);
-        } else if key < arr[index] {
-            arr.swap(index + 1, index);
         }
+        // check if we're smaller than the leftward element
+        else if key < arr[index] {
+            // swap the values of arr at index + 1 and index
+            arr.swap(index + 1, index);
+            // we'll just move on at this point so that we don't walk off the
+            // edge of the list
+        }
+        // we're not smaller than the element,
+        // time to move on to the next key
     }
 
     #[tailcall]
-    fn inner<T>(arr: &mut [T], index: usize)
-    where
-        T: Ord + Clone + fmt::Debug,
-    {
+    fn inner<T: Ord + Clone>(arr: &mut [T], index: usize) {
+        // check if we're still on a valid element
         if index < arr.len() {
+            // start walking backwards with the current element as the key
             walk_backwards(arr, index - 1, arr[index].clone());
+            // continue on to the next key element
             inner(arr, index + 1);
         }
+        // if not, just implicitly return...
     }
 
+    // start the whole algorithm on the second element
+    // (we already know the first isn't smaller than itself)
     inner(arr, 1);
 }
 

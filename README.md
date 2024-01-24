@@ -24,4 +24,11 @@
 
 [1] [Grokking Algorithms](https://livebook.manning.com/book/grokking-algorithms-second-edition/chapter-1/v-4/)
 
+[2] [Core Rust source code](https://doc.rust-lang.org/src/core/slice/mod.rs.html#2837)
+
+[3] [Creusot binary search example code](https://github.com/xldenis/creusot/blob/master/creusot/tests/should_succeed/vector/04_binary_search.rs)
+
+[4] [Rust documentation](https://doc.rust-lang.org/std/primitive.usize.html#impl-Div-for-usize)
+
+
 ---

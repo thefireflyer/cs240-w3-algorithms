@@ -23,24 +23,43 @@ pub fn binary_search_iterative<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
 {
+    // Shortened docs, see week 1 assignment for details and loop invariants
+
+    // Implementation based on: [1;2;3]
+
+    // Initialize our search region to the whole array
     let mut start: usize = 0;
     let mut end: usize = arr.len();
 
+    // Search loop | Find target
+    // Run until we've exhausted possible items
+    // search_start > search_end would be an invalid search region
     while start < end {
+        // Find the midpoint of our search region (size intermediate to avoid integer overflow)
         let size = end - start;
         let midpoint = start + (size / 2);
+        // Get the item at the midpoint index
         let item = &arr[midpoint];
+
+        // Check if the item is the one we're looking for
         if item == target {
+            // If so, immediately return with the midpoint index
             return Some(midpoint);
         }
 
+        // Check if the item is lower than target
         if item < target {
+            // If so, discard the lower half of our search region
             start = midpoint + 1;
         }
+        // Check if the item is higher than target
         if item > target {
+            // If so, discard the upper half of our search region
             end = midpoint;
         }
     }
+
+    // The target isn't here...
     None
 }
 
@@ -65,28 +84,69 @@ pub fn binary_search_recursive<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
 {
+    /*
+    [Inner algorithm]
+
+        |
+        | Essentially same as the iterative approach.
+        | We're just breaking up the for loop into a recursive function.
+        |
+        | Instead of mutable lower and upper bounds, we'll pass them in
+        | as function parameters.
+        |
+        | Inside the function, we find the midpoint and compare it to target.
+        |
+        | If we need to adjust our search area, we'll call ourselves again,
+        | but with adjusted parameters.
+        |
+        | (We'll need access to `arr` and `target` so we need to pass them in
+        | as parameters as well)
+        |
+
+    */
+
+    // See linear_search.rs for `#[tailcall]` explanation
     #[tailcall]
     fn inner<T>(arr: &[T], target: &T, lower: usize, upper: usize) -> Option<usize>
     where
         T: Ord,
     {
+        // check if we have a valid search area
         if lower < upper {
+            // find the midpoint (avoiding integer overflow)
             let size = upper - lower;
             let midpoint = lower + (size / 2);
+            // find the midpoint item
             let item = &arr[midpoint];
 
+            // Check if the item is the one we're looking for
             if item == target {
+                // If so, immediately return with the midpoint index
                 Some(midpoint)
-            } else if item < target {
+            }
+            // Check if the item is lower than target
+            else if item < target {
+                // If so, discard the lower half of our search region
+                // Again, adjusting the parameters to our function call
+                // instead of modifying a mutable variable.
                 inner(arr, target, midpoint + 1, upper)
-            } else {
+            }
+            // Item must be higher than target...
+            else {
+                // If so, discard the upper half of our search region
+                // Again, adjusting the parameters to our function call
+                // instead of modifying a mutable variable.
                 inner(arr, target, lower, midpoint)
             }
         } else {
+            // Our search area is empty!
+            // Let's let the consumer know we couldn't find `target`
             None
         }
     }
 
+    // start with our search region covering the whole array
+    // return the result of our recursive search function
     inner(arr, target, 0, arr.len())
 }
 
