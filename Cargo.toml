@@ -7,5 +7,9 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.79"
-proptest = "1.4.0"
 tailcall = "1.0.1"
+
+# Optional performance improvements
+# [profile.release]
+# codegen-units = 1
+# lto = "fat"

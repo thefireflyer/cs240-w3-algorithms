@@ -21,7 +21,6 @@ use tailcall::tailcall;
 ///         | `None`
 ///         | `target` does not exist in `arr`
 ///
-///
 pub fn linear_search_iterative<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
@@ -58,7 +57,6 @@ where
 ///         | `None`
 ///         | `target` does not exist in `arr`
 ///
-///
 pub fn linear_search_recursive<T>(arr: &[T], target: &T) -> Option<usize>
 where
     T: Ord,
@@ -72,7 +70,10 @@ where
     All we need to know is that it won't change the behaviour of our function, but
     behind the scenes turns it into iterative code.
 
-    This is successively demostrated with the `test_big` test case.
+    This can be demostrated with the `test_big` test case.
+    Try running `cargo test --release`
+    Then try commenting out `#[tailcall]` and re-running `cargo test --release`
+    Do you get `fatal runtime error: stack overflow`?
     */
 
     #[tailcall]

@@ -156,8 +156,6 @@ where
             walk_backwards(arr, index - 1, key);
         } else if key < arr[index] {
             arr.swap(index + 1, index);
-        } else {
-            ()
         }
     }
 
@@ -169,8 +167,6 @@ where
         if index < arr.len() {
             walk_backwards(arr, index - 1, arr[index].clone());
             inner(arr, index + 1);
-        } else {
-            ()
         }
     }
 

@@ -34,10 +34,10 @@ where
             return Some(midpoint);
         }
 
-        if item < &target {
+        if item < target {
             start = midpoint + 1;
         }
-        if item > &target {
+        if item > target {
             end = midpoint;
         }
     }
